@@ -1,0 +1,14 @@
+{% extends "layout.html" %}{% block content %}
+<section class="hero"><h1>Find a book.</h1><p>Filter by a title keyword, a price range and a category. Matching books are listed cheapest first.</p></section>
+<section class="panel"><div class="panel-head"><div><h2>Search books</h2><p></p></div></div>
+<div class="panel-body"><form method="GET"><div class="form-grid">
+<div class="field"><label>TITLE KEYWORD</label><input name="keyword" value="{{ keyword }}" placeholder="e.g. murder"></div>
+<div class="field"><label>MIN PRICE ($)</label><input type="number" step="0.01" min="0" name="min_price" value="{{ min_price }}" placeholder="15"></div>
+<div class="field"><label>MAX PRICE ($)</label><input type="number" step="0.01" min="0" name="max_price" value="{{ max_price }}" placeholder="30"></div>
+<div class="field"><label>CATEGORY</label><select name="category_id"><option value="">All categories</option>{% for c in categories %}<option value="{{ c.category_id }}" {% if category_id|string == c.category_id|string %}selected{% endif %}>{{ c.name }}</option>{% endfor %}</select></div>
+</div><div class="form-actions"><button class="primary-btn" type="submit">Search</button><a class="secondary-btn" href="{{ url_for('search_books') }}">Reset</a></div></form></div>
+<div class="table-wrap"><table class="library-table"><thead><tr><th>Title</th><th>Author</th><th>Publisher</th><th>Category</th><th>Year</th><th>Price</th></tr></thead><tbody>
+{% for b in books %}<tr><td><strong>{{ b.title }}</strong></td><td>{{ b.author_name }}</td><td>{{ b.publisher_name }}</td><td><span class="badge-id">{{ b.category_name }}</span></td><td>{{ b.publish_year }}</td><td class="price">${{ "%.2f"|format(b.price) }}</td></tr>
+{% else %}<tr><td colspan="6" class="empty">{% if searched %}No books match this search.{% else %}Use the form above to search the collection.{% endif %}</td></tr>{% endfor %}
+</tbody></table></div></section>
+{% endblock %}

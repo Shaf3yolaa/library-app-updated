@@ -1,0 +1,19 @@
+{% extends "layout.html" %}{% block content %}
+<section class="hero"><div><div class="eyebrow"></div><h1>Library reports.</h1><p>Books per category, the most productive authors and the price range of the whole collection.</p></div></section>
+<div class="grid">
+<section class="panel"><div class="panel-head"><div><h2>Books per category</h2><p></p></div></div><div class="table-wrap"><table class="library-table"><thead><tr><th>Category</th><th>Books</th><th>Average price</th></tr></thead><tbody>
+{% for row in category_stats %}<tr><td><span class="badge-id">{{ row.category_name }}</span></td><td>{{ row.book_count }}</td><td class="price">${{ "%.2f"|format(row.average_price) }}</td></tr>
+{% else %}<tr><td colspan="3" class="empty">No categories yet.</td></tr>{% endfor %}
+</tbody></table></div></section>
+<section class="panel"><div class="panel-head"><div><h2>Authors with 2+ books</h2><p></p></div></div><div class="table-wrap"><table class="library-table"><thead><tr><th>Author</th><th>Books</th></tr></thead><tbody>
+{% for row in productive_authors %}<tr><td><strong>{{ row.author_name }}</strong></td><td><span class="badge-id">{{ row.book_count }}</span></td></tr>
+{% else %}<tr><td colspan="2" class="empty">No author has more than one book.</td></tr>{% endfor %}
+</tbody></table></div></section>
+</div>
+<section class="panel panel-spaced"><div class="panel-head"><div><h2>Library price summary</h2><p></p></div></div><div class="summary-row">
+<div class="stat"><b>{{ library_totals.book_count or 0 }}</b><span>Books</span></div>
+<div class="stat"><b>${{ "%.2f"|format(library_totals.total_price or 0) }}</b><span>Total price</span></div>
+<div class="stat"><b>${{ "%.2f"|format(library_totals.smallest_price or 0) }}</b><span>Smallest</span></div>
+<div class="stat"><b>${{ "%.2f"|format(library_totals.largest_price or 0) }}</b><span>Largest</span></div>
+</div></section>
+{% endblock %}

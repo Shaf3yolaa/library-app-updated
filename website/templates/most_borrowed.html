@@ -1,0 +1,13 @@
+{% extends "layout.html" %}{% block content %}
+<section class="hero"><div><div class="eyebrow"></div><h1>Reader favourites.</h1><p>The three books with the most loans and the member who borrowed the most.</p></div></section>
+<div class="grid">
+<section class="panel"><div class="panel-head"><div><h2>Top 3 books</h2><p></p></div></div><div class="table-wrap"><table class="library-table"><thead><tr><th>#</th><th>Book</th><th>Loans</th></tr></thead><tbody>
+{% for book in top_books %}<tr><td><span class="badge-id">{{ loop.index }}</span></td><td><strong>{{ book.title }}</strong></td><td class="price">{{ book.loan_count }}</td></tr>
+{% else %}<tr><td colspan="3" class="empty">No loans recorded yet.</td></tr>{% endfor %}
+</tbody></table></div></section>
+<section class="panel"><div class="panel-head"><div><h2>Top member</h2><p></p></div></div><div class="table-wrap"><table class="library-table"><thead><tr><th>Member</th><th>Email</th><th>Loans</th></tr></thead><tbody>
+{% if top_member %}<tr><td><strong>{{ top_member.name }}</strong></td><td class="sub-cell">{{ top_member.email }}</td><td class="price">{{ top_member.loan_count }}</td></tr>
+{% else %}<tr><td colspan="3" class="empty">No loans recorded yet.</td></tr>{% endif %}
+</tbody></table></div></section>
+</div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "layout.html" %}{% block content %}
+<section class="hero"><h1>Authors at a glance.</h1><p>How many books each author wrote — including the ones who wrote none — and the books published in the author's own country.</p></div></section>
+<div class="grid">
+<section class="panel"><div class="panel-head"><div><h2>Books per author</h2></div></div><div class="table-wrap"><table class="library-table"><thead><tr><th>Author</th><th>Country</th><th>Books</th></tr></thead><tbody>
+{% for author in author_counts %}<tr><td><strong>{{ author.author_name }}</strong>{% if author.book_count == 0 %}<span class="sub">no books yet</span>{% endif %}</td><td>{{ author.country }}</td><td class="price">{{ author.book_count }}</td></tr>
+{% else %}<tr><td colspan="3" class="empty">No authors yet.</td></tr>{% endfor %}
+</tbody></table></div></section>
+<section class="panel"><div class="panel-head"><div><h2>Author and publisher, same country</h2><p></p></div></div><div class="table-wrap"><table class="library-table"><thead><tr><th>Book</th><th>Author</th><th>Publisher</th><th>Country</th></tr></thead><tbody>
+{% for book in same_country_books %}<tr><td><strong>{{ book.title }}</strong></td><td>{{ book.author_name }}</td><td>{{ book.publisher_name }}</td><td><span class="badge-id">{{ book.country }}</span></td></tr>
+{% else %}<tr><td colspan="4" class="empty">No books have a local author and publisher.</td></tr>{% endfor %}
+</tbody></table></div></section>
+</div>
+{% endblock %}

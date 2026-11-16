@@ -1,0 +1,7 @@
+{% extends "layout.html" %}{% block content %}
+<section class="hero"><div><div class="eyebrow"></div><h1>Every book.</h1><p>The complete catalogue with the author, publisher and category names instead of the ids.</p></div><div class="stats"><div class="stat"><b>{{ books|length }}</b><span>Books</span></div></div></section>
+<section class="panel"><div class="panel-head"><div><h2>Catalogue</h2><p></p></div></div><div class="table-wrap"><table class="library-table"><thead><tr><th>Title</th><th>Author</th><th>Publisher</th><th>Category</th><th>Year</th><th>Price</th></tr></thead><tbody>
+{% for b in books %}<tr><td><strong>{{ b.title }}</strong></td><td>{{ b.author_name }}</td><td>{{ b.publisher_name }}</td><td><span class="badge-id">{{ b.category_name }}</span></td><td>{{ b.publish_year }}</td><td class="price">${{ "%.2f"|format(b.price) }}</td></tr>
+{% else %}<tr><td colspan="6" class="empty">The catalogue is empty.</td></tr>{% endfor %}
+</tbody></table></div></section>
+{% endblock %}

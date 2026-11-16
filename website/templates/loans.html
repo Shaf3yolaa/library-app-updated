@@ -1,0 +1,17 @@
+{% extends "layout.html" %}{% block content %}
+<section class="hero"><div><div class="eyebrow"></div><h1>Loans in motion.</h1><p>Books that are still out, members who never borrowed and books nobody has taken yet.</p></div></section>
+<div class="grid">
+<section class="panel"><div class="panel-head"><div><h2>Not returned yet</h2><p></p></div></div><div class="table-wrap"><table class="library-table"><thead><tr><th>Book</th><th>Member</th><th>Loan date</th></tr></thead><tbody>
+{% for loan in open_loans %}<tr><td><strong>{{ loan.title }}</strong></td><td>{{ loan.member_name }}</td><td>{{ loan.loan_date }}</td></tr>
+{% else %}<tr><td colspan="3" class="empty">Every loan has been returned.</td></tr>{% endfor %}
+</tbody></table></div></section>
+<section class="panel"><div class="panel-head"><div><h2>Members with no loans</h2><p></p></div></div><div class="table-wrap"><table class="library-table"><thead><tr><th>Member</th><th>Email</th><th>Joined</th></tr></thead><tbody>
+{% for member in idle_members %}<tr><td><strong>{{ member.name }}</strong></td><td class="sub-cell">{{ member.email }}</td><td>{{ member.join_date }}</td></tr>
+{% else %}<tr><td colspan="3" class="empty">Every member has borrowed a book.</td></tr>{% endfor %}
+</tbody></table></div></section>
+</div>
+<section class="panel panel-spaced"><div class="panel-head"><div><h2>Books never borrowed</h2><p></p></div></div><div class="table-wrap"><table class="library-table"><thead><tr><th>Book</th><th>Author</th></tr></thead><tbody>
+{% for book in never_borrowed %}<tr><td><strong>{{ book.title }}</strong></td><td>{{ book.author_name }}</td></tr>
+{% else %}<tr><td colspan="2" class="empty">Every book has been borrowed at least once.</td></tr>{% endfor %}
+</tbody></table></div></section>
+{% endblock %}
